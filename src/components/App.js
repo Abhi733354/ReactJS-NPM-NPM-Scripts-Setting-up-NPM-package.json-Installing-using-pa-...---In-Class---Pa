@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/App.css";
 import Selection from "./Selection";
 import ColourSelector from "./ColourSelector";
@@ -28,13 +28,16 @@ const title = "Select the gradient and then the Box to change the color";
 
 const App = () => {
   let [nextBackground, selectNextBackground] = useState({ background: "" });
-  const applyColor = (updateSelectionStyle) => {
-    updateSelectionStyle(nextBackground);
+  const applyColor = (setColor) => {
+    setColor(nextBackground.background);
   };
+
+  // useEffect(() => {
+  //   console.log("next bg color" - nextBackground);
+  // });
 
   return (
     <div id="master">
-      {/* <h5>Abhinay</h5> */}
       <h5 className="heading">{title}</h5>
 
       <div className="row">
@@ -46,14 +49,13 @@ const App = () => {
           />
         ))}
       </div>
+      {/* <div>Color = {nextBackground.background}</div> */}
 
-      {/* <div className='row' id="children-wrapper">
-        {
-          ["selection1", "selection2", "selection3"].map(key => (
-            <Selection key={key} applyColor={applyColor} />
-          ))
-        }
-      </div> */}
+      <div className="row" id="children-wrapper">
+        {["selection1", "selection2", "selection3"].map((key) => (
+          <Selection key={key} applyColor={applyColor} />
+        ))}
+      </div>
     </div>
   );
 };
